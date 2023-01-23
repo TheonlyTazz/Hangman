@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8" CHECKSUM="390803ED658B3046">
+  <PROJECT FORMAT="1.00" NAME="PAP Hangman" AUTHOR="leroy" CREATED="2023.01.16 13:46:24" MODIFIED="2023.01.17 16:42:52">
+    <DIAGRAMS>
+      <DIAGRAM FORMAT="1.00" ID="0" NAME="Hangman" CREATED="2023.01.16 13:46:31" MODIFIED="2023.01.17 16:42:52">
+        <LAYOUT FORMAT="1.00" COLUMNS="4" ROWS="13">
+          <ENTRIES>
+            <ENTRY COLUMN="0" ROW="0" ANCHOR="True">
+              <FIGURE SUBTYPE="PapTitle" FORMAT="1.00" ID="0">
+                <TEXT><![CDATA[Hangman]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="1">
+              <FIGURE SUBTYPE="PapStart" FORMAT="1.00" ID="1">
+                <TEXT><![CDATA[Start]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="2">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="67">
+                <TEXT><![CDATA[Lösung := random(randomWordList)]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="3">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="71">
+                <TEXT><![CDATA[fehlerZahl := 0]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="4">
+              <FIGURE SUBTYPE="PapInput" FORMAT="1.00" ID="4">
+                <TEXT><![CDATA[Name:]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="5">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="12">
+                <TEXT><![CDATA[Spielfeld anzeigen]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="6">
+              <FIGURE SUBTYPE="PapInput" FORMAT="1.00" ID="13">
+                <TEXT><![CDATA[eingabe := ("Geben Sie eine Buchstabe oder die Lösung ein.")]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="8">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="14">
+                <TEXT><![CDATA[Wenn len(eingabe) > 1]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="9">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="45">
+                <TEXT><![CDATA[Wenn lösung == eingabe?]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="10">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="57">
+                <TEXT><![CDATA[GEWONNEN]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="11">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="64">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="12">
+              <FIGURE SUBTYPE="PapEnd" FORMAT="1.00" ID="2">
+                <TEXT><![CDATA[Ende]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="6">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="74">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="7">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="29">
+                <TEXT><![CDATA[Lösungswort aktualisieren]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="8">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="24">
+                <TEXT><![CDATA[Wenn eingabe in Lösung]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="6">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="31">
+                <TEXT><![CDATA[Wenn fehlerZahl == 6]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="7">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="69">
+                <TEXT><![CDATA[fehlerZahl++]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="8">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="30">
+                <TEXT><![CDATA[Hangman aktualisieren]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="9">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="54">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="3" ROW="6">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="34">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="3" ROW="10">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="60">
+                <TEXT><![CDATA[VERLOREN]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="3" ROW="11">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="62">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+          </ENTRIES>
+        </LAYOUT>
+        <CONNECTIONS>
+          <CONNECTION FORMAT="1.00" ID="16" FROM="1" TO="67" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="17" FROM="4" TO="12" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="18" FROM="12" TO="13" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="19" FROM="13" TO="14" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="51" FROM="14" TO="45" TEXT="true" />
+          <CONNECTION FORMAT="1.00" ID="44" FROM="14" TO="24" TEXT="false" />
+          <CONNECTION FORMAT="1.00" ID="38" FROM="24" TO="29" TEXT="true" />
+          <CONNECTION FORMAT="1.00" ID="37" FROM="24" TO="30" TEXT="false" />
+          <CONNECTION FORMAT="1.00" ID="35" FROM="31" TO="34" TEXT="true" />
+          <CONNECTION FORMAT="1.00" ID="36" FROM="30" TO="69" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="73" FROM="31" TO="74" TEXT="false" />
+          <CONNECTION FORMAT="1.00" ID="76" FROM="29" TO="74" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="75" FROM="74" TO="13" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="53" FROM="45" TO="54" TEXT="false" />
+          <CONNECTION FORMAT="1.00" ID="58" FROM="45" TO="57" TEXT="true" />
+          <CONNECTION FORMAT="1.00" ID="56" FROM="54" TO="30" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="65" FROM="64" TO="2" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="61" FROM="34" TO="60" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="63" FROM="60" TO="62" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="59" FROM="57" TO="64" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="66" FROM="62" TO="64" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="68" FROM="67" TO="71" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="70" FROM="69" TO="31" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="72" FROM="71" TO="4" TEXT="" />
+        </CONNECTIONS>
+      </DIAGRAM>
+      <DIAGRAM FORMAT="1.00" ID="1" NAME="HangmanMultiplayer" CREATED="2023.01.16 18:42:19" MODIFIED="2023.01.16 18:42:19">
+        <LAYOUT FORMAT="1.00" COLUMNS="1" ROWS="3">
+          <ENTRIES>
+            <ENTRY COLUMN="0" ROW="0" ANCHOR="True">
+              <FIGURE SUBTYPE="PapTitle" FORMAT="1.00" ID="0">
+                <TEXT><![CDATA[HangmanMultiplayer]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="1">
+              <FIGURE SUBTYPE="PapStart" FORMAT="1.00" ID="1">
+                <TEXT><![CDATA[Start]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="2">
+              <FIGURE SUBTYPE="PapEnd" FORMAT="1.00" ID="2">
+                <TEXT><![CDATA[Ende]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+          </ENTRIES>
+        </LAYOUT>
+        <CONNECTIONS>
+          <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="2" TEXT="" />
+        </CONNECTIONS>
+      </DIAGRAM>
+    </DIAGRAMS>
+  </PROJECT>
+</FRAME>
