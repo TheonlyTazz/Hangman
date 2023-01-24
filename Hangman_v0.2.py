@@ -3,7 +3,6 @@ import time
 import random
 import json
 
-
 header = ''' _                                             
 | |                                            
 | |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  
@@ -12,17 +11,20 @@ header = ''' _
 |_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
                     __/ |                      
                    |___/      '''
-
 # Variablen
 name = ''
 punkte = 0
 fehlerZahl = 0
 difficulty = ''
 playerDB = {}
+activePlayer = 0
 
 # Alphabet
 alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 anzeigeReihe = []
+
+# Anzeigewort
+anzeigeWort = []
 
 # Woerterbuch einlesen
 wordfile = open('Wortlist.txt', 'r')
@@ -32,8 +34,6 @@ wordlist = word_data.split("\n")
 # Hangman Figur
 hangFile = open('hangman.json', 'r')
 hangman = json.load(hangFile)
-
-
 
 
 def head():
@@ -60,11 +60,11 @@ def mainmenu():
         mainmenu()
 
     randomword(int(difficulty))
-    playerselector()
+    playerCreator()
 
 
 def randomword(dif):
-    global word
+    global word, fehlerZahl
     word = random.choice(wordlist).upper()
     if dif == 1:
         if len(word) < 4 or len(word) > 5:
@@ -76,12 +76,18 @@ def randomword(dif):
         if len(word) < 9:
             randomword(dif)
 
+    fehlerZahl = 0
     anzeigeReihe.clear()
     for x in alphabet:
         anzeigeReihe.append(x)
 
+    anzeigeWort.clear()
 
-def playerselector():
+    for char in range(len(word)):
+        anzeigeWort.append('_')
+
+
+def playerCreator():
     global playerCount
     # Spieler Anzahl + Name
     head()
@@ -89,10 +95,10 @@ def playerselector():
     playerCount = input('> ')
     if playerCount.isdigit() == False:
         input('Bitte geben Sie eine Zahl ein.')
-        playerselector()
+        playerCreator()
     if int(playerCount) <= 0:
         input('Bitte geben Sie eine Zahl höher als 0 ein.')
-        playerselector()
+        playerCreator()
 
     buildplayerdb(int(playerCount))
 
@@ -103,12 +109,12 @@ def buildplayerdb(playercount):
     playerDB.clear()
     for playerIndex in range(playercount):
         head()
-        print(f'Bitte geben sie Spielername {playerIndex+1} ein')
+        print(f'Bitte geben sie Spielername {playerIndex + 1} ein')
         name = input('> ')
         playerDB[name] = 0
 
 
-def drawhangman():
+def drawhangman(fehlerZahl):
     # Galgenmännchen anzeigen
     spielfeld = hangman[str(fehlerZahl)]
     print(spielfeld)
@@ -120,51 +126,117 @@ def drawalphabet():
 
 
 def drawword():
-    print()
+    print(f'WORT:')
+    print(' '.join(anzeigeWort))
+
+
+def playerSelector():
+    global activePlayer
+    if activePlayer > len(playerDB) - 1:
+        activePlayer = 0
+    name = list(playerDB.keys())[activePlayer]
+    activePlayer += 1
+    return name
 
 
 def guess():
+    global fehlerZahl, name, punkte
+    name = playerSelector()
+    punkte = playerDB[name]
     # Raten
     head()
-    print(word)
-    drawhangman()
+    # print(word)
+    drawhangman(fehlerZahl)
     drawword()
     drawalphabet()
 
     attempt = input('Bitte geben Sie einen Buchstaben zum raten ein, oder ein Lösungswort.\n> ')
+
     # Buchstabe raten
     if len(attempt) == 1:
-        index = anzeigeReihe.index(attempt.upper())
-        anzeigeReihe[index] = ' '
+        if attempt.upper() in anzeigeReihe:
+            index = anzeigeReihe.index(attempt.upper())
+            anzeigeReihe[index] = ' '
 
-        if attempt.upper() in word:
-            print('Buchstabe ist im Wort!')
+            # Wenn Versuch im Wort
+            if attempt.upper() in word:
+                print('Buchstabe ist im Wort!')
+                time.sleep(0.5)
+
+
+                # Wortreihe einfüllen
+                for i in range(len(word)):
+                    if word[i] == attempt.upper():
+                        anzeigeWort[i] = word[i]
+                        playerDB[name] = playerDB[name] + 1
+
+                if '_' not in anzeigeWort:
+                    win()
+
+            # Wenn Versuch nicht im Wort
+            else:
+                print(f'Das war verkehrt!')
+                time.sleep(0.5)
+                fehlerZahl = fehlerZahl + 1
+
+        else:
+            print('Buchstabe wurde bereits gewählt')
+            time.sleep(0.5)
+            fehlerZahl = fehlerZahl + 1
 
 
 
     # Loesungswort raten
     else:
-        #TEMP
-        pass
+        if attempt.upper() == word:
+            for i in range(len(word)):
+                if anzeigeWort[i] == '_':
+                    playerDB[name] = playerDB[name] + 2
+
+            win()
+        else:
+            print(f'Das war verkehrt!')
+            time.sleep(0.5)
+            fehlerZahl = fehlerZahl + 1
+
+
+    if fehlerZahl >= 6:
+        lose()
+
+    guess()
 
 
 def win():
-    # Gewinn
-    os.system('cls')
+    # Gewonnen
+    print('Sie Haben gewonnen!')
+    retry()
 
 
 def lose():
     # Verloren
-    os.system('cls')
+
+    print('Sie haben verloren')
+    retry()
 
 
 def retry():
-    # Neuspiel?
-    if retry == True:
-        mainmenu()
+    for player in playerDB:
+        print(f'{player}: {playerDB[player]}  Punkte')
 
+    # Neuspiel?
+    ask = input('Noch ein Spiel?   Y/N \n>')
+    if ask.upper() == 'Y':
+        Retry = True
+    elif ask.upper() == 'N':
+        Retry = False
+    else:
+        head()
+        retry()
+
+    if Retry == True:
+        mainmenu()
+    else:
+        exit()
 
 
 mainmenu()
-
-
