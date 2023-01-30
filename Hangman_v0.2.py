@@ -108,26 +108,13 @@ def playerCreator():
 def buildplayerdb(playercount):
     playerDB.clear()
     for playerIndex in range(playercount):
-        head()
-        print(f'Bitte geben sie Spielername {playerIndex + 1} ein')
-        name = input('> ')
+
+        name = ''
+        while name == '':
+            head()
+            print(f'Bitte geben sie Spielername {playerIndex + 1} ein')
+            name = input('> ')
         playerDB[name] = 0
-
-
-def drawhangman(fehlerZahl):
-    # Galgenmännchen anzeigen
-    spielfeld = hangman[str(fehlerZahl)]
-    print(spielfeld)
-
-
-def drawalphabet():
-    # Alphabet Liste anzeigen bzw löschen
-    print(' '.join(anzeigeReihe))
-
-
-def drawword():
-    print(f'WORT:')
-    print(' '.join(anzeigeWort))
 
 
 def playerSelector():
@@ -137,6 +124,24 @@ def playerSelector():
     name = list(playerDB.keys())[activePlayer]
     activePlayer += 1
     return name
+
+
+def drawhangman(fehlerZahl):
+    # Galgenmännchen anzeigen
+    spielfeld = hangman[str(fehlerZahl)]
+    print(spielfeld)
+    print()
+
+
+def drawword():
+    print(f'WORT:')
+    print(' '.join(anzeigeWort))
+    print()
+
+
+def drawalphabet():
+    # Alphabet Liste anzeigen bzw löschen
+    print(' '.join(anzeigeReihe))
 
 
 def guess():
@@ -215,11 +220,15 @@ def win():
 def lose():
     # Verloren
 
-    print('Sie haben verloren')
+    print('Sie haben verloren\n')
+    print(f'Das Lösungswort war: {word.upper()}')
+
     retry()
 
 
 def retry():
+    global name, punkte
+
     for player in playerDB:
         print(f'{player}: {playerDB[player]}  Punkte')
 
@@ -234,6 +243,8 @@ def retry():
         retry()
 
     if Retry == True:
+        name = ''
+        punkte = 0
         mainmenu()
     else:
         exit()
