@@ -229,7 +229,7 @@ def lose():
 def retry():
     global name, punkte
 
-    for player, value in playerDB:
+    for player, value in playerDB.items():
         print(f'{player}: {value}  Punkte')
 
     # Neuspiel?
