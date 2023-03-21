@@ -2,6 +2,7 @@ import tkinter as tk
 import random
 import tkinter.messagebox
 import tkinter.font as font
+from PIL import ImageTk, Image
 
 root = tk.Tk()
 root.title("Hangman Spiel - 10IT")
@@ -28,11 +29,11 @@ incorrect_guesses = 0
 
 # Draw hangman parts
 
-beam = canvas.create_line(700, 25, 700, 300, fill="black")
-beamhead = canvas.create_line(700, 25, 800, 25, fill="black")
-beamdiagonal = canvas.create_line(700, 45, 720, 25, fill="black" )
+beam = canvas.create_line(669, 25, 669, 300, fill="black")
+beamhead = canvas.create_line(669, 25, 800, 25, fill="black")
+beamdiagonal = canvas.create_line(669, 42, 689, 25, fill="black" )
 beamdown = canvas.create_line(800, 25, 800, 45, fill="black")
-beambase = canvas.create_rectangle(650, 300, 850, 400, fill="black")
+beambase = canvas.create_rectangle(650, 300, 850, 300, fill="black")
 
 head = canvas.create_oval(750, 45, 850, 145, fill="white", state="hidden")
 body = canvas.create_line(800, 145, 800, 245, fill="black", state="hidden")
@@ -45,6 +46,21 @@ left_eye = canvas.create_line(775, 60, 775, 90, fill="black", state='hidden')
 right_eye = canvas.create_line(825, 60, 825, 90, fill="black", state='hidden')
 mouth = canvas.create_line(775, 100, 825, 100, fill="black", state='hidden')
 
+image0 = Image.open("hangmanImage/0.png")
+image1 = Image.open("hangmanImage/1.png")
+image2 = Image.open("hangmanImage/2.png")
+image3 = Image.open("hangmanImage/3.png")
+image4 = Image.open("hangmanImage/4.png")
+image5 = Image.open("hangmanImage/5.png")
+image6 = Image.open("hangmanImage/6.png")
+
+
+imageX = 670
+imageY = 42
+test = ImageTk.PhotoImage(image0)
+label1 = tkinter.Label(image=test)
+label1.image = test
+label1.place(x=imageX, y=imageY)
 
 
 
@@ -108,22 +124,45 @@ def incorrect_guess(incorrect_guesses):
     # Creating canvas to draw hangman figure
 
     if incorrect_guesses == 1:
-        canvas.itemconfig(head, fill="white", state="normal")
+        #canvas.itemconfig(head, fill="white", state="normal")
+        test = ImageTk.PhotoImage(image1)
+        label1 = tkinter.Label(image=test)
+        label1.image = test
+        label1.place(x=imageX, y =imageY)
     elif incorrect_guesses == 2:
-        canvas.itemconfig(body, fill="black", state="normal")
+        #canvas.itemconfig(body, fill="black", state="normal")
+        test = ImageTk.PhotoImage(image2)
+        label1 = tkinter.Label(image=test)
+        label1.image = test
+        label1.place(x=imageX, y =imageY)
     elif incorrect_guesses == 3:
-        canvas.itemconfig(left_arm, fill="black", state="normal")
+        #canvas.itemconfig(left_arm, fill="black", state="normal")
+        test = ImageTk.PhotoImage(image3)
+        label1 = tkinter.Label(image=test)
+        label1.image = test
+        label1.place(x=imageX, y =imageY)
     elif incorrect_guesses == 4:
-        canvas.itemconfig(right_arm, fill="black", state="normal")
+        #canvas.itemconfig(right_arm, fill="black", state="normal")
+        test = ImageTk.PhotoImage(image4)
+        label1 = tkinter.Label(image=test)
+        label1.image = test
+        label1.place(x=imageX, y =imageY)
     elif incorrect_guesses == 5:
-        canvas.itemconfig(left_leg, fill="black", state="normal")
+        #canvas.itemconfig(left_leg, fill="black", state="normal")
+        test = ImageTk.PhotoImage(image5)
+        label1 = tkinter.Label(image=test)
+        label1.image = test
+        label1.place(x=imageX, y =imageY)
 
     if incorrect_guesses >= 6:
-        canvas.itemconfig(right_leg, fill="black", state="normal")
-
-        canvas.itemconfig(left_eye, fill="black", state="normal")
-        canvas.itemconfig(right_eye, fill="black", state="normal")
-        canvas.itemconfig(mouth, fill="black", state="normal")
+        #canvas.itemconfig(right_leg, fill="black", state="normal")
+        #canvas.itemconfig(left_eye, fill="black", state="normal")
+        #canvas.itemconfig(right_eye, fill="black", state="normal")
+        #canvas.itemconfig(mouth, fill="black", state="normal")
+        test = ImageTk.PhotoImage(image6)
+        label1 = tkinter.Label(image=test)
+        label1.image = test
+        label1.place(x=imageX, y =imageY)
 
         tkinter.messagebox.showinfo("Verloren!", "Du hast mehr als 6 Versuche gebraucht. Das Wort war " + word)
         reset_game()
