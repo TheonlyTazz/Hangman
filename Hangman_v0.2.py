@@ -11,12 +11,13 @@ header = ''' _
 |_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
                     __/ |                      
                    |___/      '''
+
 # Variablen
 name = ''
 punkte = 0
 fehlerZahl = 0
 difficulty = ''
-playerDB = {}
+playerDB = {} # Datenbank / Dictionary
 activePlayer = 0
 
 # Alphabet
@@ -30,6 +31,7 @@ anzeigeWort = []
 wordfile = open('Wortlist.txt', 'r')
 word_data = wordfile.read()
 wordlist = word_data.split("\n")
+word = ""
 
 # Hangman Figur
 hangFile = open('hangman.json', 'r')
@@ -41,6 +43,7 @@ def head():
     os.system('cls')
     print(header)
     print(f'Name: {name} | Punkte: {punkte}')
+    #print(f'Loesung: {word}')
     print('\n')
 
 
@@ -96,8 +99,8 @@ def playerCreator():
     if playerCount.isdigit() == False:
         input('Bitte geben Sie eine Zahl ein.')
         playerCreator()
-    if int(playerCount) <= 0:
-        input('Bitte geben Sie eine Zahl höher als 0 ein.')
+    if int(playerCount) <= 0 or int(playerCount) > 4:
+        input('Bitte geben Sie eine Zahl höher als 0 oder weniger als 4 ein.')
         playerCreator()
 
     buildplayerdb(int(playerCount))
@@ -250,6 +253,5 @@ def retry():
         exit()
 
 
-
-
-mainmenu()
+if __name__ == "__main__":
+    mainmenu()
